@@ -1,0 +1,37 @@
+public class Solution
+        {
+            private void PushLeft(Stack<TreeNode> s, TreeNode n)
+            {
+                while (n != null)
+                {
+                    s.Push(n);
+                    n = n.left;
+                }
+            }
+
+            public int MinDiffInBST(TreeNode root)
+            {
+                var l = new List<int>();
+                var s = new Stack<TreeNode>();
+
+                PushLeft(s, root);
+                while (s.Count > 0)
+                {
+                    var p = s.Pop();
+                    l.Add(p.val);
+                    PushLeft(s, p.right);
+                }
+
+                var result = int.MaxValue;
+                for (var i = 0; i < l.Count - 1; ++i)
+                {
+                    var d = Math.Abs(l[i] - l[i + 1]);
+                    if (result > d)
+                    {
+                        result = d;
+                    }
+                }
+
+                return result;
+            }
+        }
