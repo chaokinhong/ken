@@ -1,0 +1,61 @@
+public class Solution 
+{
+    public double FindMedianSortedArrays(int[] nums1, int[] nums2) 
+    {
+        int temp;
+            if (nums1.Length == 0)
+            {
+                if (nums2.Length % 2 == 0)
+                {
+                    return (double)(nums2[nums2.Length / 2 - 1] + nums2[nums2.Length / 2]) / 2;
+                }
+                else
+                {
+                    return (double)(nums2[nums2.Length / 2]);
+                }
+            }
+            else if (nums2.Length == 0) 
+            {
+                if (nums1.Length % 2 == 0)
+                {
+                    return (double)(nums1[nums1.Length / 2 - 1] + nums1[nums1.Length / 2]) / 2;
+                }
+                else
+                {
+                    return (double)(nums1[nums1.Length / 2]);
+                }
+            }
+            else
+            {
+                int[] num = new int[nums1.Length + nums2.Length];
+                for (int i = 0; i < nums1.Length; i++)
+                {
+                    num[i] = nums1[i];
+                }
+                for (int i = 0; i < nums2.Length; i++)
+                {
+                    num[i + nums1.Length] = nums2[i];
+                }
+                for (int i = 0; i < num.Length-1; i++)
+                {
+                    for (int j = 0; j < num.Length-1-i; j++)
+                    {
+                        if (num[j]>num[j+1])
+                        {
+                            temp = num[j + 1];
+                            num[j + 1] = num[j];
+                            num[j] = temp;
+                        }
+                    }
+                }
+                if (num.Length % 2 == 0)
+                {
+                    return (double)(num[num.Length / 2 - 1] + num[num.Length / 2]) / 2;
+                }
+                else
+                {
+                    return (double)(num[num.Length / 2]);
+                }
+            }
+    }
+}
